@@ -1,4 +1,4 @@
-import { CiudadEntity } from 'src/ciudad/ciudad.entity/ciudad.entity';
+import { CiudadEntity } from '../../ciudad/ciudad.entity/ciudad.entity';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -9,11 +9,11 @@ export class SupermercadoEntity {
   @Column()
   name: string;
 
-  @Column()
-  longitud: number;
+  @Column({ type: 'double precision' })
+  longitude: number;
 
-  @Column()
-  latitud: number;
+  @Column({ type: 'double precision' })
+  latitude: number;
 
   @Column()
   webpage: string;

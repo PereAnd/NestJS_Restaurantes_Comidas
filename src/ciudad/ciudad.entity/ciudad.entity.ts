@@ -1,5 +1,11 @@
-import { SupermercadoEntity } from 'src/supermercado/supermercado.entity/supermercado.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { SupermercadoEntity } from '../../supermercado/supermercado.entity/supermercado.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class CiudadEntity {
@@ -16,5 +22,6 @@ export class CiudadEntity {
   population: number;
 
   @ManyToMany(() => SupermercadoEntity, (supermercado) => supermercado.cities)
+  @JoinTable()
   supermarkets: SupermercadoEntity[];
 }
