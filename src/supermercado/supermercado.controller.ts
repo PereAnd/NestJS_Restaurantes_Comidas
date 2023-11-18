@@ -7,13 +7,16 @@ import {
   Param,
   Post,
   Put,
+  UseInterceptors,
 } from '@nestjs/common';
 import { SupermercadoService } from './supermercado.service';
 import { SupermercadoDto } from './supermercado.dto/supermercado.dto';
 import { SupermercadoEntity } from './supermercado.entity/supermercado.entity';
 import { plainToInstance } from 'class-transformer';
+import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors/business-errors.interceptor';
 
 @Controller('supermarkets')
+@UseInterceptors(BusinessErrorsInterceptor)
 export class SupermercadoController {
   constructor(private readonly supermercadoService: SupermercadoService) {}
 

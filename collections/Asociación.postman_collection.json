@@ -1,0 +1,752 @@
+{
+	"info": {
+		"_postman_id": "319f7669-3a51-41bf-beb2-1a1cb45d83ce",
+		"name": "Asociación",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25557271"
+	},
+	"item": [
+		{
+			"name": "Add a supermarket to a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets",
+						"{{supermarketId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add a supermarket to a city",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets",
+								"{{supermarketId}}"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "271"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"10f-HOavnVAaWyKRPYPlp5nicnZ0RVI\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:03:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"25341898-324a-46a5-a8f4-ef366bd87d1f\",\n    \"name\": \"City A\",\n    \"country\": \"Country A\",\n    \"population\": 7654321,\n    \"supermarkets\": [\n        {\n            \"id\": \"169b6e11-ff13-4207-9cf2-2cb1a0a14f74\",\n            \"name\": \"Supermarket A\",\n            \"longitude\": -74.006,\n            \"latitude\": 40.7128,\n            \"webpage\": \"https://www.supermarket-a.com\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Add an invalid supermarket to a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"The supermarket with the given id was not found\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add an invalid supermarket to a city",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4e-So3L6afIKwI/u66qTnUtURsV+x0\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:05:02 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The supermarket with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get all supermarkets from a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all supermarkets from a city",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "151"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"97-5JuzljgdQL7zNulDRG/1R60wel4\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:06:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"169b6e11-ff13-4207-9cf2-2cb1a0a14f74\",\n        \"name\": \"Supermarket A\",\n        \"longitude\": -74.006,\n        \"latitude\": 40.7128,\n        \"webpage\": \"https://www.supermarket-a.com\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get a supermarket non-associated to a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"   pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"The supermarket with the given id is not associated to the city\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets",
+						"{{supermarketId2}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get a supermarket non-associated to a city",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets",
+								"{{supermarketId2}}"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "94"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5e-XRNaVUX1z2U9blnyeEhzHK3f9/o\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:22:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 412,\n    \"message\": \"The supermarket with the given id is not associated to the city\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update supermarkets from a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": \"e9e40a8a-96f8-4c19-beb0-f9f9b028245d\",\n        \"name\": \"Supermarket A\",\n        \"longitude\": 2,\n        \"latitude\": 1,\n        \"webpage\": \"www.supermarketa.com\",\n        \"cities\": []\n    },\n    {\n        \"id\": \"f1ee627b-8730-4ec8-a7c3-8d66aa649070\",\n        \"name\": \"Supermarket B\",\n        \"longitude\": 4,\n        \"latitude\": 3,\n        \"webpage\": \"www.supermarketb.com\",\n        \"cities\": []\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update supermarkets from a city",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": \"e9e40a8a-96f8-4c19-beb0-f9f9b028245d\",\n        \"name\": \"Supermarket A\",\n        \"longitude\": 2,\n        \"latitude\": 1,\n        \"webpage\": \"www.supermarketa.com\",\n        \"cities\": []\n    },\n    {\n        \"id\": \"f1ee627b-8730-4ec8-a7c3-8d66aa649070\",\n        \"name\": \"Supermarket B\",\n        \"longitude\": 4,\n        \"latitude\": 3,\n        \"webpage\": \"www.supermarketb.com\",\n        \"cities\": []\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "401"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"191-3QFNfG4Vb05PUE2jtnhmOaD4ZRY\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:26:55 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"d1d25410-df9f-4ba2-93ce-0c6bd155a776\",\n    \"name\": \"City B\",\n    \"country\": \"Country B\",\n    \"population\": 20000,\n    \"supermarkets\": [\n        {\n            \"id\": \"e9e40a8a-96f8-4c19-beb0-f9f9b028245d\",\n            \"name\": \"Supermarket A\",\n            \"longitude\": 2,\n            \"latitude\": 1,\n            \"webpage\": \"www.supermarketa.com\",\n            \"cities\": []\n        },\n        {\n            \"id\": \"f1ee627b-8730-4ec8-a7c3-8d66aa649070\",\n            \"name\": \"Supermarket B\",\n            \"longitude\": 4,\n            \"latitude\": 3,\n            \"webpage\": \"www.supermarketb.com\",\n            \"cities\": []\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Update invalid supermarkets from a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"The supermarket with the given id was not found\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Supermarket A\",\n        \"longitude\": 2,\n        \"latitude\": 1,\n        \"webpage\": \"www.supermarketa.com\",\n        \"cities\": []\n    },\n    {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Supermarket B\",\n        \"longitude\": 4,\n        \"latitude\": 3,\n        \"webpage\": \"www.supermarketb.com\",\n        \"cities\": []\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update invalid supermarkets from a city",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Supermarket A\",\n        \"longitude\": 2,\n        \"latitude\": 1,\n        \"webpage\": \"www.supermarketa.com\",\n        \"cities\": []\n    },\n    {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Supermarket B\",\n        \"longitude\": 4,\n        \"latitude\": 3,\n        \"webpage\": \"www.supermarketb.com\",\n        \"cities\": []\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4e-So3L6afIKwI/u66qTnUtURsV+x0\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:31:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"The supermarket with the given id was not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete a supermarket from a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets",
+						"{{supermarketId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete a supermarket from a city",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets",
+								"{{supermarketId}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:35:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete a supermarket non-associated to a city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"   pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"The supermarket with the given id is not associated to the city\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cities",
+						"{{cityId}}",
+						"supermarkets",
+						"{{supermarketId2}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete a supermarket non-associated to a city",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cities/{{cityId}}/supermarkets/{{supermarketId2}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cities",
+								"{{cityId}}",
+								"supermarkets",
+								"{{supermarketId2}}"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "94"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5e-XRNaVUX1z2U9blnyeEhzHK3f9/o\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 17 Nov 2023 23:33:03 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 412,\n    \"message\": \"The supermarket with the given id is not associated to the city\"\n}"
+				}
+			]
+		}
+	]
+}

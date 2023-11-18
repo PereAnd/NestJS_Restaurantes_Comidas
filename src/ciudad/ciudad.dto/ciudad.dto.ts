@@ -1,11 +1,11 @@
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsIn } from 'class-validator';
 
 export class CiudadDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;
 
-  @IsString()
+  @IsIn(['Argentina', 'Ecuador', 'Paraguay'])
   @IsNotEmpty()
   readonly country: string;
 

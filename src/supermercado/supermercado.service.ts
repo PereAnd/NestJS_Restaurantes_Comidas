@@ -19,21 +19,22 @@ export class SupermercadoService {
   }
 
   async findOne(id: string): Promise<SupermercadoEntity> {
-    const city: SupermercadoEntity = await this.supermercadoRepository.findOne({
-      where: { id },
-      relations: ['cities'],
-    });
-    if (!city) {
+    const supermarket: SupermercadoEntity =
+      await this.supermercadoRepository.findOne({
+        where: { id },
+        relations: ['cities'],
+      });
+    if (!supermarket) {
       throw new BusinessLogicException(
         'The supermarket with the given id was not found',
         BusinessError.NOT_FOUND,
       );
     }
-    return city;
+    return supermarket;
   }
 
-  async create(ciudad: SupermercadoEntity): Promise<SupermercadoEntity> {
-    return await this.supermercadoRepository.save(ciudad);
+  async create(supermarket: SupermercadoEntity): Promise<SupermercadoEntity> {
+    return await this.supermercadoRepository.save(supermarket);
   }
 
   async update(

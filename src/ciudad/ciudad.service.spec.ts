@@ -10,6 +10,7 @@ describe('CiudadService', () => {
   let service: CiudadService;
   let repository: Repository<CiudadEntity>;
   let citiesList: CiudadEntity[];
+  const countries = ['Argentina', 'Ecuador', 'Paraguay'];
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -30,7 +31,7 @@ describe('CiudadService', () => {
     for (let i = 0; i < 5; i++) {
       const city: CiudadEntity = await repository.save({
         name: faker.location.city(),
-        country: faker.location.country(),
+        country: countries[Math.floor(Math.random() * countries.length)],
         population: faker.number.int(),
       });
       citiesList.push(city);
@@ -67,7 +68,7 @@ describe('CiudadService', () => {
     const city: CiudadEntity = {
       id: '',
       name: faker.location.city(),
-      country: faker.location.country(),
+      country: countries[Math.floor(Math.random() * countries.length)],
       population: faker.number.int(),
       supermarkets: [],
     };

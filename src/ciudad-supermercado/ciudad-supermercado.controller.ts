@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -20,12 +21,6 @@ export class CiudadSupermercadoController {
   constructor(
     private readonly citySupermarketService: CiudadSupermercadoService,
   ) {}
-
-  // addSupermarketToCity
-  // findSupermarketsFromCity
-  // findSupermarketFromCity
-  // updateSupermarketsFromCity
-  // deleteSupermarketFromCity
 
   @Post(':cityId/supermarkets/:supermarketId')
   async addSupermarketToCity(
@@ -67,6 +62,7 @@ export class CiudadSupermercadoController {
   }
 
   @Delete(':cityId/supermarkets/:supermarketId')
+  @HttpCode(204)
   async deleteSupermarketFromCity(
     @Param('cityId') cityId: string,
     @Param('supermarketId') supermarketId: string,
